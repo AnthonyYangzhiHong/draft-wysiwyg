@@ -52,6 +52,7 @@ class WysiwygEditor extends Component {
     if (this.props.onChange) {
       this.batch(() => {
         this._raw = convertToRaw(editorState.getCurrentContent());
+        console.log(this._raw)
         this.props.onChange(this._raw, editorState);
       });
     }

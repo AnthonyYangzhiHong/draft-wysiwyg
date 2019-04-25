@@ -48,9 +48,6 @@ const table = FocusDecorator(
 // Init Plugins
 export default ({ handleUpload, handleDefaultData, plugins = ()=>{}, toolbar = { disableItems: [], textActions: []}}) => [
   plugins,
-  createCleanupEmptyPlugin({
-    types: ['block-image', 'block-table']
-  }),
   createEntityPropsPlugin({ }),
   createToolbarPlugin({
     __toolbarHandler: {
@@ -104,29 +101,6 @@ export default ({ handleUpload, handleDefaultData, plugins = ()=>{}, toolbar = {
     }].filter(toolbarItem => !toolbar.disableItems.includes(toolbarItem.key)), ...toolbar.textActions]
   }),
   createFocusPlugin({}),
-  createAlignmentPlugin({}),
-  createDndPlugin({
-    allowDrop: true,
-    handleUpload,
-    handleDefaultData,
-    handlePlaceholder: (state, selection, data) => {
-      const { type } = data;
-      if (type.indexOf('image/') === 0) {
-        return 'block-image';
-      } else if (type.indexOf('text/') === 0 || type === 'application/json') {
-        return 'placeholder-github';
-      } return undefined;
-    }, handleBlock: (state, selection, data) => {
-      const { type } = data;
-      if (type.indexOf('image/') === 0) {
-        return 'block-image';
-      } else if (type.indexOf('text/') === 0 || type === 'application/json') {
-        return 'block-text';
-      } return undefined;
-    },
-  }),
-  createResizeablePlugin({}),
   // Blocks
-  createImagePlugin({ component: image }),
-  createTablePlugin({ component: table, Editor }),
+  createImagePlugin({ component: image })
 ];
